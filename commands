@@ -1,0 +1,21 @@
+document.getElementById("year").innerText = new Date().getFullYear();
+
+    $("#submit").click(function () {
+        $("#form").submit(function(event){
+            event.preventDefault();
+            var form = $(this);
+            var actionUrl = form.attr('action');
+            var formData = new FormData($(this)[0]);
+
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: download.bind(true, "<FILENAME_TO_SAVE_WITH_EXTENSION>")
+            });
+        });
+    });
