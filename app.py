@@ -47,10 +47,10 @@ def upload_file():
             filename = secure_filename(file.filename)
             prefix = uuid.uuid4().hex
             
-            input_filename = os.path.join(app.root_path, "data", prefix+filename)
-            file.save(os.path.join(app.root_path, "data", input_filename))            
-            
-            output_filename = pdf_converter.convert_pdf(input_filename)
+            input_filename = prefix+filename
+            filename_with_path = os.path.join(app.root_path, "data", input_filename)
+            file.save(filename_with_path)            
+            output_filename = pdf_converter.convert_pdf(filename_with_path)
             return redirect(url_for('download_file', name=output_filename))
         else:
             return("Only PDF files are allowed!")

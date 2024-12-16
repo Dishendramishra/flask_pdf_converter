@@ -14,4 +14,4 @@ def convert_pdf(filename):
     cv.convert(output_filename, start=0, end=None)
     cv.close()
     
-    return output_filename
+    return output_filename.name
