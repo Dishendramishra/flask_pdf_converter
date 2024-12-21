@@ -40,11 +40,21 @@
                 <div>
                     <h2 class="h2">PDF to DOCX Converter</h2>
                 </div>
-                <form id="form" action="/upload_file" method="post" enctype="multipart/form-data"
-                    class="d-flex flex-column p-3 gap-3 bg-white rounded border border-info">
+                <form id="form" class="d-flex flex-column p-3 gap-3 bg-white rounded border border-info"
+                    hx-encoding='multipart/form-data'
+                    hx-post='/upload_file' 
+                    hx-indicator="#spinner" 
+                    hx-swap="outerHTML"
+                    hx-target="#submit"
+                    hx-disabled-elt="find button">
                     <label class="form-label" for="customFile">Convert PDF to DOCX</label>
-                    <input class="form-control w-auto" type="file" id="formFile" name="file" accept="application/pdf">
-                    <button class="btn btn-primary" id="submit" >Convert</button>
+                    <input class="form-control w-auto" type="file" id="formFile" name="file" accept="application/pdf" required>
+                    <button class="btn btn-primary d-flex justify-content-around" id="submit"
+                        hx-on:click="document.getElementById('btn-text').innerText='Converting ...';">
+                        <div id="spinner" class="spinner-border spinner-border-sm text-primary invisible"></div>
+                        <span id="btn-text">Convert</span>
+                        <div id="spinner" class="spinner-border spinner-border-sm text-light htmx-indicator" role="status"></div>
+                    </button>
                 </form>
             </div>
         </div>
@@ -60,22 +70,13 @@
 
     </div>
 
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
 </body>
 
 <script>
     document.getElementById("year").innerText = new Date().getFullYear();
-
-    $("#submit").click(function () {
-        $("#form").submit();
-    });
-
-    // $("#form").bind('ajax:complete', function() {
-    //     console.log("done");
-    // });
 </script>
 
 </html>

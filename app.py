@@ -44,16 +44,22 @@ def upload_file():
 
         
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            prefix = uuid.uuid4().hex
+            try:
+                filename = secure_filename(file.filename)
+                prefix = uuid.uuid4().hex
+                
+                input_filename = prefix+filename
+                filename_with_path = os.path.join(app.root_path, "data", input_filename)
+                file.save(filename_with_path)            
+                output_filename = pdf_converter.convert_pdf(filename_with_path)
+                return render_template("download.html", filename=output_filename)
             
-            input_filename = prefix+filename
-            filename_with_path = os.path.join(app.root_path, "data", input_filename)
-            file.save(filename_with_path)            
-            output_filename = pdf_converter.convert_pdf(filename_with_path)
-            return redirect(url_for('download_file', name=output_filename))
+            except Exception as e:
+                return render_template("convert_error.html")
         else:
-            return("Only PDF files are allowed!")
+            return """<div class="alert alert-danger" role="alert">
+                    Only PDF files are allowed!
+                    </div>"""
 
 @app.route('/uploaded_info')
 def uploaded_info():
