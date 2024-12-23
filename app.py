@@ -57,9 +57,7 @@ def upload_file():
             except Exception as e:
                 return render_template("convert_error.html")
         else:
-            return """<div class="alert alert-danger" role="alert">
-                    Only PDF files are allowed!
-                    </div>"""
+            return render_template("invalid_filetype.html")
 
 @app.route('/uploaded_info')
 def uploaded_info():
