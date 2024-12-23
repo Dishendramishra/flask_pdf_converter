@@ -47,8 +47,7 @@
                 </div>
                 <form id="form" class="d-flex flex-column p-3 gap-3 bg-white rounded border border-info"
                     hx-encoding='multipart/form-data' hx-post='/upload_file' hx-indicator="#spinner" hx-swap="outerHTML"
-                    hx-target="#submit" hx-disabled-elt="find button"
-                    hx-on:submit="htmx.find('#btn-text').innerText='Converting ...';">
+                    hx-target="#submit" hx-disabled-elt="find button">
                     <label class="form-label" for="customFile">Convert PDF to DOCX</label>
                     <input class="form-control w-auto" type="file" id="formFile" name="file" accept="application/pdf"
                         required>
