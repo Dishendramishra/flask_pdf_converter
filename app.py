@@ -74,6 +74,16 @@ def download_file(name):
         as_attachment=True,
     )
 
+@app.route("/test")
+def test():
+    resp = Response()
+    resp.headers['HX-Redirect'] = '/hello'
+    return resp
+
+@app.route("/hello")
+def hello():
+    return "Hello, World!"
+
 if __name__ == "__main__":
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
